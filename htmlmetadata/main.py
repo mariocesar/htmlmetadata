@@ -2,14 +2,14 @@ import json
 from typing import Callable, List
 from urllib.request import urlopen
 
-from bs4 import BeautifulSoup
-
 from .rules import Rules
 
 __all__ = ["extract_metadata"]
 
 
 def extract_metadata(url: str) -> dict:
+    from bs4 import BeautifulSoup
+
     metadata = {"request": {"url": url}, "summary": {}}
     response = urlopen(url)
 
