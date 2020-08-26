@@ -19,6 +19,8 @@ def extract_metadata(url: str) -> dict:
     if url != response.geturl():
         metadata["request"]["redirects"] = response.geturl
 
+    metadata["request"]["headers"] = response.headers
+
     soup = BeautifulSoup(response.read(), "html5lib")
 
     for group in Rules:
@@ -71,5 +73,9 @@ def extract_metadata(url: str) -> dict:
                 metadata["summary"]["image"] = schema["image"][0]
             else:
                 metadata["summary"]["image"] = schema["image"]
+
+    content_type = response.headers.get("Content-Type", "")
+    if "image" not in metadata["summary"] and content_type.startswith("image/"):
+        metadata["summary"]["image"] = response.geturl()
 
     return metadata
