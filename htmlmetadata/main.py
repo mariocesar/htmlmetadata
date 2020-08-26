@@ -19,7 +19,7 @@ def extract_metadata(url: str) -> dict:
     if url != response.geturl():
         metadata["request"]["redirects"] = response.geturl
 
-    metadata["request"]["headers"] = response.headers
+    metadata["request"]["headers"] = dict(response.headers)
 
     soup = BeautifulSoup(response.read(), "html5lib")
 
