@@ -17,7 +17,7 @@ def extract_metadata(url: str) -> dict:
         raise Exception(f"Invalid response status {response.status!r}")
 
     if url != response.geturl():
-        metadata["request"]["redirects"] = response.geturl
+        metadata["request"]["redirects"] = response.geturl()
 
     metadata["request"]["headers"] = { **response.headers }
 
